@@ -11,7 +11,7 @@ const HomePage = (props: Props) => {
 
       <div className="middlePart flex flex-row justify-start items-center ml-8">
         <div
-          className="flex flex-col justify-start items-center ml-16 mt-16"
+          className="flex flex-col justify-start items-center ml-16"
           style={{
             marginleft: "30px",
             display: "flex",
@@ -45,11 +45,45 @@ const HomePage = (props: Props) => {
               New goals require new knowledge
             </h3>
             <h5
-              style={{ marginLeft: "30px", width: "420px", marginTop: "80px" }}
+              style={{
+                marginLeft: "30px",
+                width: "420px",
+                marginTop: "40px",
+                fontFamiliy: "Poppins,sans-serif",
+              }}
             >
               We have created a platform that will help users to directly create
               lists along with images{" "}
             </h5>
+
+            <br />
+            <div
+              className="fullDiv"
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <input
+                type="button"
+                style={{
+                  background: "#f89e2d",
+                  paddingLeft: "12px",
+                  paddingRight: "12px",
+                  paddingTop: "6px",
+                  paddingBottom: "6px",
+                  borderRadius: "8px",
+                  color: "white",
+                  cursor: "pointer",
+                  fontSize: "18px",
+                  fontFamily: "Poppins",
+                }}
+                value="Go ->"
+              />
+            </div>
             <br />
           </div>
           <div
@@ -61,21 +95,63 @@ const HomePage = (props: Props) => {
               alignItems: "center",
             }}
           >
-            <div className="box1" style={{ marginTop: "12px" }}>
+            <div
+              className="box1"
+              style={{ marginTop: "15px", marginLeft: "30px" }}
+            >
               <img
                 src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YSUyMHBlcnNvbiUyMHN0dWR5aW5nJTIwb25saW5lfGVufDB8fDB8fHww"
                 style={{
                   height: "180px",
-                  width: "400px",
+                  width: "320px",
                   borderRadius: "12px",
                 }}
               />
             </div>
-            <div className="box2"></div>
+            <div className="box2">
+              <img
+                src="https://cdn-icons-png.freepik.com/512/8805/8805200.png"
+                style={{
+                  height: "180px",
+                  width: "180px",
+                  marginLeft: "8px",
+                  borderRadius: "12px",
+                }}
+              />
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
           </div>
+          <br />
         </div>
 
-        <div className="flex flex-col justify-center items-center"></div>
+        <div
+          className="flex flex-col "
+          style={{
+            marginTop: "0px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "start",
+            alignItems: "start",
+          }}
+        >
+          <img
+            src="https://www.free-mockup.com/wp-content/uploads/edd/2021/07/Hand-Holding-Smartphone-PSD-Mockup.jpg"
+            // className="mix-blend-"
+            style={{
+              margin: "12px",
+              mixBlendMode: "multiply",
+              height: "105vh",
+              width: "700px",
+              borderRadius: "12px",
+              marginBottom: "30px",
+            }}
+          />
+        </div>
       </div>
     </div>
   );
