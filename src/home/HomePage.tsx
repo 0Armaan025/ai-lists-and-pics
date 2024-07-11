@@ -13,7 +13,7 @@ const HomePage = (props: Props) => {
         <div
           className="flex flex-col justify-start items-center ml-16"
           style={{
-            marginleft: "30px",
+            marginLeft: "30px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "start",
@@ -49,7 +49,7 @@ const HomePage = (props: Props) => {
                 marginLeft: "30px",
                 width: "420px",
                 marginTop: "40px",
-                fontFamiliy: "Poppins,sans-serif",
+                fontFamily: "Poppins,sans-serif",
               }}
             >
               We have created a platform that will help users to directly create
