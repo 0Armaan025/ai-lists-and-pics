@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   }
 
   const genAI = new GoogleGenerativeAI(
-    "xxx"
+    "xxxx"
   );
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
