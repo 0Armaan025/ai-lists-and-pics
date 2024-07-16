@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar/Navbar";
 import React from "react";
 import "./homepage.css";
+import Link from "next/link";
 
 type Props = {};
 
@@ -67,6 +68,7 @@ const HomePage = (props: Props) => {
                 alignItems: "center",
               }}
             >
+              <Link href="/get-text">
               <input
                 type="button"
                 style={{
@@ -83,6 +85,7 @@ const HomePage = (props: Props) => {
                 }}
                 value="Go ->"
               />
+              </Link>
             </div>
             <br />
           </div>

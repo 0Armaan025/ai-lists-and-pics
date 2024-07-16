@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Navbar: React.FC = () => {
@@ -32,12 +33,14 @@ const Navbar: React.FC = () => {
             </a>
           </div>
           <div className="flex items-center">
-            <button
-              className="bg-transparent hover:bg-white hover:text-black cursor-pointer transition-all px-8 py-2 rounded-3xl text-sm font-medium border-2 border-black "
-              style={{ fontFamily: "Orbitron, sans-serif" }}
-            >
-              Join
-            </button>
+            <Link href="/get-text">
+              <button
+                className="bg-transparent hover:bg-white hover:text-black cursor-pointer transition-all px-8 py-2 rounded-3xl text-sm font-medium border-2 border-black "
+                style={{ fontFamily: "Orbitron, sans-serif" }}
+              >
+                Join
+              </button>
+            </Link>
           </div>
         </div>
       </div>
