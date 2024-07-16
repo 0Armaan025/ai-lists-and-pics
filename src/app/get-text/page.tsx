@@ -1,11 +1,10 @@
-// src/app/page.tsx
 "use client";
 import Navbar from "@/components/navbar/Navbar";
 import React, { useState } from "react";
 
 export default function GetText() {
   const [prompt, setPrompt] = useState("");
-  const [story, setStory] = useState("");
+  const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
   const generateStory = async () => {
@@ -19,16 +18,11 @@ export default function GetText() {
       const response = await fetch(
         `/api/generate-story?prompt=${encodeURIComponent(prompt)}`
       );
-      const data = await response.json();
-      setStory(
-        data.text ||
-          data.data
-            .map((leader: any) => `${leader.company} - ${leader.name}`)
-            .join(", ")
-      );
+      const responseData = await response.json();
+      setData(responseData.data || []);
     } catch (error) {
       console.error("Error generating story:", error);
-      setStory("Failed to generate story.");
+      alert("Failed to generate story.");
     } finally {
       setLoading(false);
     }
@@ -62,7 +56,46 @@ export default function GetText() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <p style={{ fontFamily: "Poppins", marginTop: "20px" }}>{story}</p>
+          <table
+            style={{
+              fontFamily: "Poppins",
+              marginTop: "20px",
+              width: "80%",
+              borderCollapse: "collapse",
+            }}
+            border={1}
+          >
+            <thead>
+              <tr>
+                <th style={{ padding: "8px" }}>Title</th>
+                <th style={{ padding: "8px" }}>Detail</th>
+                <th style={{ padding: "8px" }}>Image</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item, index) => (
+                <tr key={index}>
+                  <td style={{ padding: "8px" }}>{item.title}</td>
+                  <td style={{ padding: "8px" }}>{item.detail}</td>
+                  <td style={{ padding: "8px" }}>
+                    {item.imageUrl ? (
+                      <img
+                        src={item.imageUrl}
+                        alt={`${item.detail}'s image`}
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    ) : (
+                      "No Image Available"
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
       </center>
     </div>
