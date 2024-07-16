@@ -48,7 +48,7 @@ export default function GetText() {
           type="button"
           value="Generate!"
           onClick={generateStory}
-          className="px-4 py-2 bg-black text-white cursor-pointer mt-4 rounded-sm"
+          className="px-4 py-2 mb-4  bg-black text-white cursor-pointer mt-4 rounded-sm"
           style={{ fontFamily: "Poppins" }}
           disabled={loading}
         />
@@ -56,46 +56,47 @@ export default function GetText() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <table
-            style={{
-              fontFamily: "Poppins",
-              marginTop: "20px",
-              width: "80%",
-              borderCollapse: "collapse",
-            }}
-            border={1}
+          <div
+            className="mt-4 mb-4"
+            style={{ maxWidth: "80%", margin: "0 auto" }}
           >
-            <thead>
-              <tr>
-                <th style={{ padding: "8px" }}>Title</th>
-                <th style={{ padding: "8px" }}>Detail</th>
-                <th style={{ padding: "8px" }}>Image</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
-                  <td style={{ padding: "8px" }}>{item.title}</td>
-                  <td style={{ padding: "8px" }}>{item.detail}</td>
-                  <td style={{ padding: "8px" }}>
-                    {item.imageUrl ? (
-                      <img
-                        src={item.imageUrl}
-                        alt={`${item.detail}'s image`}
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          borderRadius: "50%",
-                        }}
-                      />
-                    ) : (
-                      "No Image Available"
-                    )}
-                  </td>
+            <table
+              className="table-auto w-full border-collapse border border-black"
+              style={{ fontFamily: "Poppins" }}
+            >
+              <thead>
+                <tr className="bg-gray-200">
+                  <th className="border border-black px-4 py-2">Title</th>
+                  <th className="border border-black px-4 py-2">Detail</th>
+                  <th className="border border-black px-4 py-2">Image</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="mb-4">
+                {data.map((item, index) => (
+                  <tr key={index} className="bg-white">
+                    <td className="border border-black px-4 py-2">
+                      {item.title}
+                    </td>
+                    <td className="border border-black px-4 py-2">
+                      {item.detail}
+                    </td>
+                    <td className="border border-black px-4 py-2">
+                      {item.imageUrl ? (
+                        <img
+                          src={item.imageUrl}
+                          alt={`${item.detail}'s image`}
+                          className="w-12 h-12 rounded-full"
+                        />
+                      ) : (
+                        "No Image Available"
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <br />
+          </div>
         )}
       </center>
     </div>

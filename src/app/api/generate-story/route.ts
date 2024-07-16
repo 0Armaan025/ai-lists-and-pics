@@ -3,6 +3,24 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import axios from "axios";
 import * as cheerio from "cheerio";
 
+const fetchImage = async (query: string): Promise<string> => {
+  try {
+    const apiKey = process.env.NEXT_PUBLIC_SERPAPI_KEY;
+    const url = `https://serpapi.com/search.json?q=${encodeURIComponent(
+      query
+    )}&engine=google_images&api_key=${apiKey}`;
+    const { data } = await axios.get(url);
+
+    
+    const imageUrl = data?.images_results?.[0]?.thumbnail || "";
+
+    return imageUrl;
+  } catch (error) {
+    console.error(`Error fetching image for ${query}:`, error);
+    return "";
+  }
+};
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const userPrompt = url.searchParams.get("prompt") || "";
@@ -16,7 +34,7 @@ export async function GET(request: Request) {
   );
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  const prompt = `${userPrompt}, separated by commas, like 1.) Apple - Tim Cook, there must be no other text other than the list`;
+  const prompt = `${userPrompt}, separated by commas, like 1.) Title - SubTitle, there must be no other text other than the list`;
 
   try {
     const result = await model.generateContent(prompt);
@@ -36,20 +54,5 @@ export async function GET(request: Request) {
     return NextResponse.json({ data });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-}
-
-async function fetchImage(query: string): Promise<string> {
-  try {
-    const url = `https://www.google.com/search?hl=en&tbm=isch&q=${encodeURIComponent(
-      query
-    )}`;
-    const { data } = await axios.get(url);
-    const $ = cheerio.load(data);
-    const imageUrl = $("img").first().attr("src");
-    return imageUrl || "";
-  } catch (error) {
-    console.error(`Error fetching image for ${query}:`, error);
-    return "";
   }
 }
