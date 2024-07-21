@@ -1,19 +1,15 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import axios from "axios";
-import * as cheerio from "cheerio";
 
-const fetchImage = async (query: string): Promise<string> => {
+const fetchImage = async (query: string) => {
   try {
-    const apiKey = process.env.NEXT_PUBLIC_SERPAPI_KEY;
-    const url = `https://serpapi.com/search.json?q=${encodeURIComponent(
+    const url = `https://some-api-ten.vercel.app/get-image/${encodeURIComponent(
       query
-    )}&engine=google_images&api_key=${apiKey}`;
+    )}`;
     const { data } = await axios.get(url);
 
-    
-    const imageUrl = data?.images_results?.[0]?.thumbnail || "";
-
+    const imageUrl = data?.full_image_url || "";
     return imageUrl;
   } catch (error) {
     console.error(`Error fetching image for ${query}:`, error);
@@ -21,7 +17,7 @@ const fetchImage = async (query: string): Promise<string> => {
   }
 };
 
-export async function GET(request: Request) {
+export async function GET(request: any) {
   const url = new URL(request.url);
   const userPrompt = url.searchParams.get("prompt") || "";
 
@@ -41,15 +37,20 @@ export async function GET(request: Request) {
     const response = await result.response;
     const text = await response.text();
 
-    const entries = text.split(",");
+    const entries = text.split("\n").filter((entry) => entry.trim() !== "");
 
-    const data = await Promise.all(
-      entries.map(async (entry) => {
-        const [title, detail] = entry.trim().split(" - ");
-        const imageUrl = await fetchImage(detail.trim());
-        return { title: title.trim(), detail: detail.trim(), imageUrl };
-      })
-    );
+    const uniqueEntries = new Set();
+    const data = [];
+
+    for (const entry of entries) {
+      const [title, detail] = entry.split(" - ");
+      const company = detail.trim();
+      if (!uniqueEntries.has(company)) {
+        uniqueEntries.add(company);
+        const imageUrl = await fetchImage(title);
+        data.push({ title: title.trim(), detail: company, imageUrl });
+      }
+    }
 
     return NextResponse.json({ data });
   } catch (error: any) {

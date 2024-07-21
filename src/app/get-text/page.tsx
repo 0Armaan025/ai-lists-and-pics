@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 export default function GetText() {
   const [prompt, setPrompt] = useState("");
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const generateStory = async () => {
@@ -48,7 +48,7 @@ export default function GetText() {
           type="button"
           value="Generate!"
           onClick={generateStory}
-          className="px-4 py-2 mb-4  bg-black text-white cursor-pointer mt-4 rounded-sm"
+          className="px-4 py-2 mb-4 bg-black text-white cursor-pointer mt-4 rounded-sm"
           style={{ fontFamily: "Poppins" }}
           disabled={loading}
         />
@@ -71,8 +71,8 @@ export default function GetText() {
                   <th className="border border-black px-4 py-2">Image</th>
                 </tr>
               </thead>
-              <tbody className="mb-4">
-                {data.map((item, index) => (
+              <tbody>
+                {data.map((item: any, index: any) => (
                   <tr key={index} className="bg-white">
                     <td className="border border-black px-4 py-2">
                       {item.title}
